@@ -42,14 +42,14 @@ conf_df = load_data(FILE_PATHS["confusion"])
 # ──────────────────────────────
 # Diagnostic Expander (Optional but helpful)
 # ──────────────────────────────
-with st.expander("🔬 Click to see Debug Information"):
+"""with st.expander("🔬 Click to see Debug Information"):
     st.subheader("File & Data Validation")
     for name, path in FILE_PATHS.items():
         st.markdown(f"**Checking for `{path}`...**")
         if os.path.exists(path):
             st.success("File found!")
         else:
-            st.error("File NOT found! Check path and file structure in your repo.")
+            st.error("File NOT found! Check path and file structure in your repo.")"""
 
 # ──────────────────────────────
 # Tabs
