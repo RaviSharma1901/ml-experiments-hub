@@ -26,7 +26,7 @@ This module implements a real-time fraud detection pipeline featuring live trans
 - 🔌 **REST API**: FastAPI endpoint for external system integration and batch testing.
 - 🛰️ **Kafka Integration**: Simulated transaction flow for scoring and log streaming.
 
-## 🚀 Quickstart Instructions
+##  Quickstart Instructions
 
 1. Clone the repository and navigate to the module:
 
