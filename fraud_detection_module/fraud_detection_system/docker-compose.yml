@@ -1,0 +1,80 @@
+services:
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - fraudnet
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: "dataset_stream:1:1"
+    depends_on:
+      - zookeeper
+    networks:
+      - fraudnet
+
+  fastapi:
+    build: ./fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - kafka
+    volumes:
+      - ./fastapi_app/models:/app/models
+    networks:
+      - fraudnet
+
+  consumer:
+    build: ./kafka_stream
+    command: python dataset_consumer.py
+    depends_on:
+      - kafka
+    volumes:
+      - ./fastapi_app/models:/consumer/models
+      - ./kafka_stream:/app/kafka_stream
+    networks:
+      - fraudnet
+
+  producer:
+    build: ./kafka_stream
+    command: python dataset_producer.py
+    depends_on:
+      - kafka
+    volumes:
+      - ./kafka_stream/creditcard.csv:/consumer/creditcard.csv
+    networks:
+      - fraudnet
+
+  feeder:
+    build: ./fraud_feeder
+    depends_on:
+      - kafka
+      - fastapi
+    volumes:
+      - ./fraud_feeder/data:/fraud_feeder/data
+    networks:
+      - fraudnet
+
+  dashboard:
+    build: ./dashboard_app
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./static_snapshots:/app/static_snapshots
+      - ./kafka_stream:/app/kafka_stream
+    depends_on:
+      - consumer
+      - producer
+      - feeder
+    networks:
+      - fraudnet
+
+networks:
+  fraudnet:
