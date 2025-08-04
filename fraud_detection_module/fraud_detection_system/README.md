@@ -33,3 +33,4 @@ This module implements a real-time fraud detection pipeline featuring live trans
 ```bash
 git clone https://github.com/RaviSharma1901/ml-experiments-hub
 cd fraud_detection_module/fraud_detection_system
+docker-compose up --build
