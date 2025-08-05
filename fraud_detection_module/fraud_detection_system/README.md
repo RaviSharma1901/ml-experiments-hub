@@ -43,31 +43,34 @@ This module implements a real-time fraud detection pipeline featuring live trans
 
 1. Option 1: Complete System (Recommended for Demo)
 
-```bash
-git clone https://github.com/RaviSharma1901/ml-experiments-hub
-cd fraud_detection_module/fraud_detection_system
-docker-compose up --build
-
-# Access dashboard
-http://localhost:8501
 ```
+git clone https://github.com/RaviSharma1901/ml-experiments-hub
+cd fraud_detection_module/fraud_detection_system 
+```
+  Build and start the containers  
+`docker-compose up --build -d`
+
+  Access dashboard
+`http://localhost:8501`
+
 2. Option 2: Individual Services (Advanced Users)
 
 ##### Note: Requires external Kafka cluster and proper networking
-docker pull docker4mlpl/fraud_dashboard_app:latest
-docker pull docker4mlpl/fraud_fastapi:latest  
-docker pull docker4mlpl/fraud_producer:latest
-docker pull docker4mlpl/fraud_consumer:latest
-docker pull docker4mlpl/fraud_feeder:latest
+
+- docker pull docker4mlpl/fraud_dashboard_app:latest
+- docker pull docker4mlpl/fraud_fastapi:latest  
+- docker pull docker4mlpl/fraud_producer:latest
+- docker pull docker4mlpl/fraud_consumer:latest
+- docker pull docker4mlpl/fraud_feeder:latest
 
 ##### See deployment guide for full infrastructure setup
 
 Dependencies Required
 
-Docker & Docker Compose
-Apache Kafka (included in docker-compose.yml)
-Zookeeper (included in docker-compose.yml)
-Python 3.9+ dependencies (containerized)
+- Docker & Docker Compose
+- Apache Kafka (included in docker-compose.yml)
+- Zookeeper (included in docker-compose.yml)
+- Python 3.9+ dependencies (containerized)
 
 ## 🐳 Docker Deployment
 
